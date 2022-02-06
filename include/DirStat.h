@@ -1,23 +1,36 @@
 #pragma once
 
 #include <iostream>
-#include <filesystem>
-#include <fstream>
-#include <chrono>
+#include <filesystem>   // filessystem operation
+#include <fstream>      // reading from files
+#include <chrono>       // benchmark: high_resolution_clock::now
+#include <semaphore>    // counting_semaphore
+#include <future>       // thread pool: async
+#include <vector>
 
 class DirStat
 {
     public:
-        DirStat(std::filesystem::path DIR = ".") : dir(DIR) {};  // default c-tor
+
+        DirStat(std::filesystem::path DIR = ".", int THNO = 1) : dir(DIR),threadsNo(THNO) {
+            dirList.push_back(dir);
+        };  // default c-tor
         virtual ~DirStat();
 
         void statShow();
 
+
     private:
+
+        void dirPool(int); //thread pool of dirStat calls (number of threads)
+        void dirStat(const std::filesystem::path); //std::filesystem::path *);
+        void makeDirList(const std::filesystem::path);
+        char entryType(std::filesystem::file_status);
+
         size_t filesNo{0}, linesNo{0}, emptyLNo{0}, charNo{0}, letterNo{0}, digitNo{0};
         std::filesystem::path dir;
+        std::vector<std::filesystem::path>dirList;
+        int threadsNo;
 
-        char entryType(std::filesystem::file_status);
-        void dirStat(std::filesystem::path&);
 };
 
