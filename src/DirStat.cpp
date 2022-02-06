@@ -27,7 +27,7 @@ void DirStat::dirStat(std::filesystem::path dir) {
 
         if ( entryType(status(dirEntry)) == 'f' ) {
 
-            bool emptyLine;
+            bool emptyLine, word=false;
             std::ifstream file(std::filesystem::canonical(dirEntry));
             std::istreambuf_iterator<char> ch(file), eos;
 
@@ -35,6 +35,11 @@ void DirStat::dirStat(std::filesystem::path dir) {
                 emptyLine = true;
 
             while (ch != eos) {
+                if (*ch == '\n' || *ch == '\t' || *ch == ' '){
+                    if (word) wordNo++;
+                    word = false;
+                } else word = true;
+
 
                 if (*ch == '\n') {
                     if (emptyLine) emptyLNo++;
@@ -71,6 +76,7 @@ void DirStat::statShow() {
     std::cout << "\nFILES: " << filesNo << std::endl;
     std::cout << "LINES: " << linesNo << std::endl;
     std::cout << "EMPTY LINES: " << emptyLNo << std::endl;
+    std::cout << "WORDS: " << wordNo << std::endl;
     std::cout << "CHARS: " << charNo << std::endl;
     std::cout << "LETTERS: " << letterNo << std::endl;
     std::cout << "DIGITS: " << digitNo << std::endl;

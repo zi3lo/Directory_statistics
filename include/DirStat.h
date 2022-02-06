@@ -27,7 +27,7 @@ class DirStat
         void makeDirList(const std::filesystem::path);
         char entryType(std::filesystem::file_status);
 
-        size_t filesNo{0}, linesNo{0}, emptyLNo{0}, charNo{0}, letterNo{0}, digitNo{0};
+        size_t filesNo{0}, linesNo{0}, emptyLNo{0}, charNo{0}, letterNo{0}, digitNo{0}, wordNo{0};
         std::filesystem::path dir;
         std::vector<std::filesystem::path>dirList;
         int threadsNo;
