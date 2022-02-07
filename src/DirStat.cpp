@@ -1,6 +1,5 @@
 #include "DirStat.h"
 
-
 DirStat::~DirStat() {
 }
 

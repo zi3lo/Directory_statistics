@@ -6,7 +6,7 @@
 using namespace std;
 using namespace std::filesystem;
 
-static int maxThreadNo = std::thread::hardware_concurrency(); // threads number avaliable
+static int maxThreadNo = std::thread::hardware_concurrency(); // threads avaliable
 
 
 int main(int argc, char *argv[]) {
